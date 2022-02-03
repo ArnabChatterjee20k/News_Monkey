@@ -4,8 +4,8 @@ import News_Item from './News_Item';
 export class News extends Component {
   articles = [{
     "source": {
-        "id": "espn-cric-info",
-        "name": "ESPN Cric Info"
+      "id": "espn-cric-info",
+      "name": "ESPN Cric Info"
     },
     "author": null,
     "title": "PCB hands Umar Akmal three-year ban from all cricket | ESPNcricinfo.com",
@@ -14,11 +14,11 @@ export class News extends Component {
     "urlToImage": "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1099495_800x450.jpg",
     "publishedAt": "2020-04-27T11:41:47Z",
     "content": "Umar Akmal's troubled cricket career has hit its biggest roadblock yet, with the PCB handing him a ban from all representative cricket for three years after he pleaded guilty of failing to report det… [+1506 chars]"
-},
-{
+  },
+  {
     "source": {
-        "id": "espn-cric-info",
-        "name": "ESPN Cric Info"
+      "id": "espn-cric-info",
+      "name": "ESPN Cric Info"
     },
     "author": null,
     "title": "What we learned from watching the 1992 World Cup final in full again | ESPNcricinfo.com",
@@ -27,33 +27,26 @@ export class News extends Component {
     "urlToImage": "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1219926_1296x729.jpg",
     "publishedAt": "2020-03-30T15:26:05Z",
     "content": "Last week, we at ESPNcricinfo did something we have been thinking of doing for eight years now: pretend-live ball-by-ball commentary for a classic cricket match. We knew the result, yes, but we tried… [+6823 chars]"
-}
-]
-  constructor(){
+  }
+  ]
+  constructor() {
     super();
     console.log("I am a constructor from News Component")
-    this.state = { 
-      articles : this.articles ,
-      loading : false
-    }  
+    this.state = {
+      articles: this.articles,
+      loading: false
+    }
   }
   render() {
     return (
-      <div className='container m-3 p-2'>
+      <div className='container p-3'>
         <h2>News Monkey - Top Headlines</h2>
         <div className="row">
-
-          <div className="col-md-4">
-            <News_Item title="arnab" description="news" image_url="https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1099495_800x450.jpg" news_url="TODO. It will help us to uniquely identify the news. "/>
-          </div>
-
-          <div className="col-md-4">
-            <News_Item title="arnab" description="news" />
-          </div>
-
-          <div className="col-md-4">
-            <News_Item title="arnab" description="news" />
-          </div>
+          {this.state.articles.map((element) => {
+            return <div className="col-md-4" >
+              <News_Item title={`${element.title.slice(0,30)}....`} description={`${element.description.slice(0,60)}....`} image_url={element.urlToImage} news_url={element.url} />
+            </div>
+          })}
 
         </div>
       </div>
