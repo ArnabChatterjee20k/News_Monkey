@@ -42,9 +42,9 @@ export class News extends Component {
       <div className='container p-3'>
         <h2>News Monkey - Top Headlines</h2>
         <div className="row">
-          {this.state.articles.map((element) => {
+          {this.state.articles.map(({title , description , urlToImage ,url}) => {
             return <div className="col-md-4" >
-              <News_Item title={`${element.title.slice(0,30)}....`} description={`${element.description.slice(0,60)}....`} image_url={element.urlToImage} news_url={element.url} />
+              <News_Item title={`${title.slice(0,30)}....`} description={`${description.slice(0,60)}....`} image_url={urlToImage} news_url={url} />
             </div>
           })}
 
