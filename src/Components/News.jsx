@@ -37,14 +37,25 @@ export class News extends Component {
       loading: false
     }
   }
+
+  async componentDidMount(){
+    // It will run always after the component is rendered on the screen
+    console.log("componentDidMount ran")
+    let url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=5e7a8ec386ee44b292ebeb2437cba363";
+    let data = await fetch(url); // waiting for the promise to get resolved
+    let parsed_data = await data.json() ; // waiting for the data to get parsed
+    console.log(parsed_data)
+    this.setState({articles : parsed_data.articles})
+  }
   render() {
+    console.log("Render ran")
     return (
       <div className='container p-3'>
         <h2>News Monkey - Top Headlines</h2>
         <div className="row">
           {this.state.articles.map(({title , description , urlToImage ,url}) => {
-            return <div className="col-md-4" >
-              <News_Item title={`${title.slice(0,30)}....`} description={`${description.slice(0,60)}....`} image_url={urlToImage} news_url={url} />
+            return <div className="col-md-4" key={url} >
+              <News_Item title={title?`${title.slice(0,30)}....`:null} description={description?`${description.slice(0,60)}....`:null} image_url={urlToImage?urlToImage:"https://images.moneycontrol.com/static-mcnews/2020/01/BSE_Sensex_Stocks_market-770x433.png"} news_url={url} /> {/* handled the null condition  using ternary operator*/}
             </div>
           })}
 
