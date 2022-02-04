@@ -11,38 +11,29 @@ export class News extends Component {
       page: 1 // page number by default 1
     }
   }
-  fetch_change_state = async () => {
-    // this method will be used to change the state after fetching data
-  }
 
-  async componentDidMount() {
-    let url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=5e7a8ec386ee44b292ebeb2437cba363&pageSize=20";
+  fetch_page_content = async (state_changing_obj) => {
+    let { page = this.state.page } = state_changing_obj; // setting default value of page if page not passed
+    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=5e7a8ec386ee44b292ebeb2437cba363&page=${page}&pageSize=20`;
     let data = await fetch(url);
     let parsed_data = await data.json();
-    this.setState({ articles: parsed_data.articles, total_results: parsed_data.totalResults })
+    this.setState({ articles: parsed_data.articles, total_results: parsed_data.totalResults, page: page })
   }
 
-  handle_prev_click = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=5e7a8ec386ee44b292ebeb2437cba363&page=${this.state.page - 1}&pageSize=20`;
-    let data = await fetch(url);
-    let parsed_data = await data.json();
-    this.setState({
-      page: this.state.page - 1,
-      articles: parsed_data.articles
-    })
+  componentDidMount() {
+    this.fetch_page_content(this.setState)
+  }
+
+  handle_prev_click = () => {
+    let passing_obj = { page: this.state.page - 1 }
+    this.fetch_page_content(passing_obj)
   }
 
   handle_next_click = async () => {
     if (!(this.state.page + 1 > Math.ceil(this.state.total_results / 20))) { // checking ending of the page
-      let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=5e7a8ec386ee44b292ebeb2437cba363&page=${this.state.page + 1}&pageSize=20`;
-      let data = await fetch(url);
-      let parsed_data = await data.json();
-      this.setState({
-        page: this.state.page + 1,
-        articles: parsed_data.articles
-      })
+      let passing_obj = { page: this.state.page + 1 }
+      this.fetch_page_content(passing_obj)
     }
-
     // console.log(this.state.page) it is giving previous result due to asynchronous nature of js. While state is getting change console is showing the previous value.
   }
 
