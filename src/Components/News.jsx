@@ -26,7 +26,7 @@ export class News extends Component {
   fetch_page_content = async (state_changing_obj) => {
     let { page = this.state.page } = state_changing_obj; // setting default value of page if page not passed
     let url = `https://newsapi.org/v2/${this.props.category}?country=${this.props.country}&apiKey=5e7a8ec386ee44b292ebeb2437cba363&page=${page}&pageSize=${this.props.pageSize}`;
-    this.setState({loading:true,articles:[]}) // setting loading true and articles become blank to empty the body and then refilling it with articles
+    this.setState({loading:true})
     let data = await fetch(url);
     let parsed_data = await data.json();
     this.setState({ articles: parsed_data.articles, total_results: parsed_data.totalResults, page: page ,loading:false})
@@ -55,12 +55,9 @@ export class News extends Component {
         <Spinner_heading />
         <h2>News Monkey - Top Headlines</h2>
         <div className="row">
-          {
-            this.state.loading ? <div className="text-center m-3 p-3">
-              <Spinner_loading />
-            </div> : null
-          }
-          {this.state.articles.map(({ title, description, urlToImage, url }) => {
+
+          {this.state.loading && <div className="text-center m-3 p-3"> <Spinner_loading /> </div>} {/* if loading is false then due to short circuting this statement will not run  */}
+          {!this.state.loading && this.state.articles.map(({ title, description, urlToImage, url }) => { // if loading is true then this statement will not run as not true is false. 
             return <div className="col-md-4" key={url} >
               <News_Item title={title ? `${title.slice(0, 30)}....` : null} description={description ? `${description.slice(0, 60)}....` : null} image_url={urlToImage ? urlToImage : "https://images.moneycontrol.com/static-mcnews/this.props.pageSizethis.props.pageSize/01/BSE_Sensex_Stocks_market-770x433.png"} news_url={url} /> {/* handled the null condition  using ternary operator*/}
             </div>
