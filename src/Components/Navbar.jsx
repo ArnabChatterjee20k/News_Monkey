@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import { Link } from 'react-router-dom';
 export class Navbar extends Component {
     static propTypes = {
-        list_items : PropTypes.array.isRequired
+        list_items: PropTypes.array.isRequired
     }
     static defaultProps = {
-        list_items : [{ name: "Element", link: "/element-link" }]
+        list_items: [{ name: "Element", link: "/element-link" }]
     }
     render() {
         let nav_items = this.props.list_items;
         return <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container">
-                    <a className="navbar-brand" href="#">News Monkey</a>
+                    <Link className="navbar-brand" to="/">News Monkey</Link>
                     <button className="navbar-toggler d-lg-none shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -21,13 +21,13 @@ export class Navbar extends Component {
                     <div className="collapse navbar-collapse" id="collapsibleNavId">
                         <ul className="navbar-nav me-auto mt-2 mt-lg-0">
                             <li className="nav-item active">
-                                <a className="nav-link" href="/">Home <span className="visually-hidden">(current)</span></a>
+                                <Link className="nav-link" to="/">Home <span className="visually-hidden">(current)</span></Link>
                             </li>
 
-                            {nav_items.map(({ name, link },index) => {
+                            {nav_items.map(({ name, link }, index) => {
                                 return <div key={index}>
                                     <li className="nav-item active">
-                                        <a className="nav-link" href={link}>{name}<span className="visually-hidden">(current)</span></a>
+                                        <Link className="nav-link" to={link}>{name}<span className="visually-hidden">(current)</span></Link>
                                     </li>
                                 </div>
                             })}
