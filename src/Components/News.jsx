@@ -50,7 +50,7 @@ export class News extends Component {
         </div>
         <div className="container m-3 p-3">
           <button disabled={this.state.page <= 1} type="button" className="btn btn-warning float-start" onClick={this.handle_prev_click}>&larr; Previous</button>
-          <button type="button" className="btn btn-warning float-end" onClick={this.handle_next_click}>Next &rarr;</button>
+          <button type="button" className="btn btn-warning float-end read_more-btn" onClick={this.handle_next_click}>Next &rarr;</button>
         </div>
       </div>
     );
