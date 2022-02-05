@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export class Navbar extends Component {
-
+    static propTypes = {
+        list_items : PropTypes.array.isRequired
+    }
+    static defaultProps = {
+        list_items : [{ name: "Element", link: "/element-link" }]
+    }
     render() {
+        let nav_items = this.props.list_items;
         return <div>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container">
                     <a className="navbar-brand" href="#">News Monkey</a>
-                    <button className="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                    <button className="navbar-toggler d-lg-none shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -16,9 +23,14 @@ export class Navbar extends Component {
                             <li className="nav-item active">
                                 <a className="nav-link" href="/">Home <span className="visually-hidden">(current)</span></a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/">About</a>
-                            </li>
+
+                            {nav_items.map(({ name, link },index) => {
+                                return <div key={index}>
+                                    <li className="nav-item active">
+                                        <a className="nav-link" href={link}>{name}<span className="visually-hidden">(current)</span></a>
+                                    </li>
+                                </div>
+                            })}
                         </ul>
                     </div>
                 </div>
