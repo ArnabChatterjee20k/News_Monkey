@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 export default class App extends Component {
   render() {
-    let nav_items = [{ name: "Sports", link: "/sports" }, { name: "Business", link: "/business" }, { name: "Technology", link: "/technology" }]
+    let nav_items = [{name:"Home",link:"/"},{ name: "Sports", link: "/sports" }, { name: "Business", link: "/business" }, { name: "Technology", link: "/technology" },{name:"Science",link:"/science"}]
     return (
       <div>
         <Router>
@@ -18,20 +18,16 @@ export default class App extends Component {
           {/* parameters we will be using in the url country and category */}
           <Switch>
             <Route exact path="/">
-              <News pageSize={15} key="general" requirement="top-headlines" country="in" category="general"/>
+              <News pageSize={15} key="general" requirement="top-headlines" country="in" category="general" />
             </Route>
-            
-            <Route exact path="/sports">
-              <News pageSize={15} key="sports" requirement="top-headlines" country="in" category="sports"/>
-            </Route>
-            
-            <Route exact path="/business">
-              <News pageSize={15} key="business" requirement="top-headlines" country="in" category="business"/>
-            </Route>
-            
-            <Route exact path="/technology">
-              <News pageSize={15} key="technology" requirement="top-headlines" country="in" category="technology"/>
-            </Route>
+
+            {nav_items.map(({ name, link }) => {
+              return (
+                <Route exact path={link} key={name}>
+                  <News pageSize={15} key={name} requirement="top-headlines" country="in" category={name} />
+                </Route>
+              )
+            })}
           </Switch>
         </Router>
       </div>

@@ -20,10 +20,6 @@ export class Navbar extends Component {
                     </button>
                     <div className="collapse navbar-collapse" id="collapsibleNavId">
                         <ul className="navbar-nav me-auto mt-2 mt-lg-0">
-                            <li className="nav-item active">
-                                <Link className="nav-link" to="/">Home <span className="visually-hidden">(current)</span></Link>
-                            </li>
-
                             {nav_items.map(({ name, link }, index) => {
                                 return <div key={index}>
                                     <li className="nav-item active">
