@@ -58,9 +58,10 @@ export class News extends Component {
         <div className="row">
 
           {this.state.loading && <div className="text-center m-3 p-3"> <Spinner_loading /> </div>}
-          {!this.state.loading && this.state.articles.map(({ title, description, urlToImage, url }) => {
+
+          {!this.state.loading && this.state.articles.map(({ title, description, urlToImage, url , publishedAt , source:{name}}) => {
             return <div className="col-md-4" key={url} >
-              <News_Item title={title ? `${title.slice(0, 30)}....` : null} description={description ? `${description.slice(0, 60)}....` : null} image_url={urlToImage ? urlToImage : "https://images.moneycontrol.com/static-mcnews/this.props.pageSizethis.props.pageSize/01/BSE_Sensex_Stocks_market-770x433.png"} news_url={url} />
+              <News_Item title={title ? `${title.slice(0, 30)}....` : null} description={description ? `${description.slice(0, 60)}....` : null} image_url={urlToImage ? urlToImage : "https://images.moneycontrol.com/static-mcnews/this.props.pageSizethis.props.pageSize/01/BSE_Sensex_Stocks_market-770x433.png"} news_url={url} publishedAt={publishedAt} name={name}/>
             </div>
           })}
         </div>
