@@ -7,25 +7,37 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+
+import LoadingBar from 'react-top-loading-bar'
 export default class App extends Component {
+  nav_items = [{ name: "Home", link: "/" }, { name: "Sports", link: "/sports" }, { name: "Business", link: "/business" }, { name: "Technology", link: "/technology" }, { name: "Science", link: "/science" }, { name: "entertainment", link: "/entertainment" }]
+  pageSize = 10
+  state = {
+    progress : 0
+  }
+  setProgress = (progess)=>{
+    console.log(this) 
+    this.setState({progress:progess})
+  }
+
   render() {
-    let nav_items = [{name:"Home",link:"/"},{ name: "Sports", link: "/sports" }, { name: "Business", link: "/business" }, { name: "Technology", link: "/technology" },{name:"Science",link:"/science"}]
-    let pageSize = 10
     return (
       <div>
         <Router>
-          <Navbar list_items={nav_items} />
-          {/* if category specified then we cant use everything.*/}
-          {/* parameters we will be using in the url country and category */}
+          <Navbar list_items={this.nav_items} />
+          <LoadingBar
+            color='#f11946'
+            progress={this.state.progress}
+          />
           <Switch>
-            <Route exact path="/">
-              <News pageSize={pageSize} key="general" requirement="top-headlines" country="in" category="general" />
+            <Route exact path="/"> {/*explicitly passing this route instead of loop as the key is different. */}
+              <News setProgress={this.setProgress} pageSize={this.pageSize} key="general" requirement="top-headlines" country="in" category="general" />
             </Route>
 
-            {nav_items.map(({ name, link }) => {
+            {this.nav_items.map(({ name, link }) => {
               return (
                 <Route exact path={link} key={name}>
-                  <News pageSize={pageSize} key={name} requirement="top-headlines" country="in" category={name} />
+                  <News setProgress={this.setProgress} pageSize={this.pageSize} key={name} requirement="top-headlines" country="in" category={name} />
                 </Route>
               )
             })}
