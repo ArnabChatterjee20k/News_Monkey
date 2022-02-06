@@ -30,7 +30,6 @@ export class News extends Component {
   fetch_page_content = async (state_changing_obj) => {
     let { page = this.state.page } = state_changing_obj;
     let url = `https://newsapi.org/v2/${this.props.requirement}?country=${this.props.country}&category=${this.props.category}&apiKey=234bbe53471d48ebb25a9f0428ce55dc&page=${page}&pageSize=${this.props.pageSize}`;
-    this.setState({ loading: true })
     let data = await fetch(url);
     let parsed_data = await data.json();
     let parsed_articles = parsed_data.articles
@@ -68,8 +67,8 @@ export class News extends Component {
         <div className='container p-3'>
           <Spinner_heading />
           <h2>News Monkey - Top Headlines</h2>
+          {this.state.loading && <div className='text-center my-3'><Spinner_loading /></div>}
           <div className="row">
-
             {this.state.articles.map(({ title, description, urlToImage, url, publishedAt, source: { name } }) => {
               return <div className="col-md-4" key={url} >
                 <News_Item title={title ? `${title.slice(0, 30)}....` : null} description={description ? `${description.slice(0, 60)}....` : null} image_url={urlToImage ? urlToImage : "https://images.moneycontrol.com/static-mcnews/this.props.pageSizethis.props.pageSize/01/BSE_Sensex_Stocks_market-770x433.png"} news_url={url} publishedAt={publishedAt} name={name} />
