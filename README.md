@@ -3,6 +3,7 @@
 <li>function branch is for function based component</li>
 <li>please make an .env.local file for api key.</li>
 <li><b>also it will only run in local host. If you connect it in a network through ip address also it will not work</b></li>
+
 # Component Structure of my News Monkey
 We have 2 components Navbar and News. Inside News component we have another component News_Item.
 # Getting Started with Create React App
