@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export class News_Item extends Component {
-    render() {
-        let { title, description, image_url, news_url, publishedAt, name } = this.props; // using object destructuring
+export function News_Item (props) {
+        let { title, description, image_url, news_url, publishedAt, name } = props; // using object destructuring
         return (
             <div className="card m-3 position-relative">
                 <img src={image_url} className="card-img-top card-img" alt="..." />
@@ -17,6 +16,5 @@ export class News_Item extends Component {
                 </div>
             </div>
         );
-    }
 }
 export default News_Item;
