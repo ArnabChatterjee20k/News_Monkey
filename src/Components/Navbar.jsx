@@ -1,15 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-export class Navbar extends Component {
-    static propTypes = {
-        list_items: PropTypes.array.isRequired
-    }
-    static defaultProps = {
-        list_items: [{ name: "Element", link: "/element-link" }]
-    }
-    render() {
-        let nav_items = this.props.list_items;
+function Navbar (props) {
+        let nav_items = props.list_items;
         return <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container">
@@ -33,7 +26,12 @@ export class Navbar extends Component {
             </nav>
 
         </div>;
-    }
 }
 
+Navbar.propTypes = {
+    list_items: PropTypes.array.isRequired
+}
+Navbar.defaultProps = {
+    list_items: [{ name: "Element", link: "/element-link" }]
+}
 export default Navbar;
