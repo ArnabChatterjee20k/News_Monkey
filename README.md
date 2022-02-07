@@ -1,4 +1,6 @@
-
+# News Monkey Branches
+master branch is for classebased component
+function branch is for function based component
 # Component Structure of my News Monkey
 We have 2 components Navbar and News. Inside News component we have another component News_Item.
 # Getting Started with Create React App
