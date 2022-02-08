@@ -23,19 +23,21 @@ export function News(props) {
     // a promise will be returned as it is an async function. You have to manually set the state using state and parsed_articles identifier
   }
 
+  function setting_hooks({ articles = Articles, loading = Loading, page = Page, total_results = Total_Results } = {}) {
+    setArticles(articles)
+    setLoading(loading)
+    setPage(page)
+    setTotal_Results(total_results)
 
+  }
   useEffect(() => {
     const page_content = fetch_page_content({ page: Page })
     page_content.then((result) => {
       let { state, parsed_articles } = result;
       state.articles = parsed_articles;
-      setArticles(state.articles)
-      setLoading(state.loading)
-      setPage(state.page)
-      setTotal_Results(state.total_results)
-      console.log(Articles)
+      setting_hooks({ articles: state.articles, loading: state.loading, page: state.page, total_results: state.total_results })
     })
-  },[]); // Not providing Article or any dependency here as the state variables are continuously are changing so the effect will be invoked everytime after every render. 
+  }, []); // Not providing Article or any dependency here as the state variables are continuously are changing so the effect will be invoked everytime after every render. 
   // Provided an empty array so effect invoked once.
   // If you omit the argument or if you dont use argument of dependency then it will be same as the first one.
 
@@ -43,10 +45,7 @@ export function News(props) {
     let func = fetch_page_content({ page: Page + 1 })
     func.then((result_promise) => {
       let { state, parsed_articles } = result_promise;
-      setArticles(state.articles.concat(parsed_articles))
-      setLoading(state.loading)
-      setPage(state.page)
-      setTotal_Results(state.total_results)
+      setting_hooks({ articles: state.articles.concat(parsed_articles), loading: state.loading, page: state.page, total_results: state.total_results  })
     })
   }
 
