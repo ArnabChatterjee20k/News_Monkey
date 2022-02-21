@@ -35,6 +35,11 @@ export default function App () {
             {nav_items.map(({ name, link }) => {
               return (
                 <Route exact path={link} key={name}>
+                  {/*
+                      when we will be moving to the specified route a news component with different props will get rendered. 
+                      Means it is happening like we are moving to a different page but that is not happening in reality.
+                  
+                  */}
                   <News api_key={api_key} setProgress={setProgress} pageSize={pageSize} key={name} requirement="top-headlines" country="in" category={name} />
                 </Route>
               )
